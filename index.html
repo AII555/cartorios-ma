@@ -11,7 +11,7 @@
 
         /* CABEÇALHO */
         header { 
-            background-color: #000080; /* Azul marinho */
+            background-color: #000080; 
             display: flex; 
             align-items: center; 
             padding: 20px 50px; 
@@ -25,7 +25,7 @@
             margin-right: 30px; 
         }
         header h1 { 
-            color: #ffffff; /* Texto branco */
+            color: #ffffff; 
             font-family: "Times New Roman", Times, serif; 
             font-size: 36px; 
         }
@@ -41,11 +41,15 @@
         tr:nth-child(even) { background-color: #f2f2f2; }
         tr:hover { background-color: #e0f7fa; }
 
-        /* AJUSTE DE QUEBRA DE LINHA: Nome completo em uma linha */
-        table td:nth-child(1) {
-            white-space: nowrap; /* Impede que o nome quebre a linha */
+        /* CORREÇÃO 1: Mantém os números de Contato (coluna 2) sempre na mesma linha em todas as tabelas */
+        table td:nth-child(2) {
+            white-space: nowrap; 
         }
-        /* As outras colunas agora quebrarão a linha para caber */
+
+        /* CORREÇÃO 2: Mantém o Nome do Cartório (coluna 1) em uma linha única APENAS na aba CIVIL */
+        #civil table td:nth-child(1) {
+            white-space: nowrap; 
+        }
 
         /* RODAPÉ E NAVEGAÇÃO (BOTÕES) */
         footer { background-color: #7f8c8d; padding: 10px 50px; display: flex; align-items: center; }
@@ -104,11 +108,11 @@
                     <tr><th>Nome</th><th>Contato</th><th>Email</th><th>Endereço</th><th>Cidade</th><th>Estado</th><th>CEP</th><th>Anotação</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td><strong>1ª Zona de Registro Civil das Pessoas Naturais...</strong></td><td>(98) 3303-4546<br>(98) 98544-9732</td><td>primeirazonama@gmail.com</td><td>RUA Rua do Egito, 96. Centro</td><td>São Luís/MA</td><td>MA</td><td>65010-190</td><td></td></tr>
-                    <tr><td><strong>2ª Zona de Registro Civil das Pessoas Naturais...</strong></td><td>(98) 3221-4996<br>(98) 98146-1592</td><td>saoluis.2rcpn@yahoo.com.br</td><td>RUA do Norte, 580. Centro</td><td>São Luís/MA</td><td>MA</td><td>65015-330</td><td></td></tr>
-                    <tr><td><strong>3ª Zona de Registro Civil das Pessoas Naturais...</strong></td><td>(98) 3243-4477<br>(98) 98718-6683</td><td>cartorio3zonama@hotmail.com</td><td>AVENIDA DOS EXPEDICIONÁRIOS, 133. João Paulo</td><td>São Luís/MA</td><td>MA</td><td>65015-330</td><td></td></tr>
-                    <tr><td><strong>4ª Zona de Registro Civil das Pessoas Naturais...</strong></td><td>(98) 3301-5518<br>(98) 99121-8080 (WhatsApp)</td><td>cartorio4zona@enochvasconcelos.com.br</td><td>AVENIDA Contorno Leste, 4. lote 14. Cohatrac/Parque Aurora</td><td>São Luís/MA</td><td>MA</td><td>65053-570</td><td></td></tr>
-                    <tr><td><strong>5ª Zona de Registro Civil das Pessoas Naturais...</strong></td><td>(98) 97022-2267<br>(98) 97022-2267</td><td>cartoriozona5@gmail.com</td><td>RUA DAS LIMEIRAS, 02. QUADRA B. JARDIM RENASCENÇA.</td><td>São Luís/MA</td><td>MA</td><td>65075-260</td><td></td></tr>
+                    <tr><td><strong>1ª Zona de Registro Civil das Pessoas Naturais de São Luís</strong></td><td>(98) 3303-4546<br>(98) 98544-9732</td><td>primeirazonama@gmail.com</td><td>RUA Rua do Egito, 96. Centro</td><td>São Luís/MA</td><td>MA</td><td>65010-190</td><td></td></tr>
+                    <tr><td><strong>2ª Zona de Registro Civil das Pessoas Naturais de São Luís</strong></td><td>(98) 3221-4996<br>(98) 98146-1592</td><td>saoluis.2rcpn@yahoo.com.br</td><td>RUA do Norte, 580. Centro</td><td>São Luís/MA</td><td>MA</td><td>65015-330</td><td></td></tr>
+                    <tr><td><strong>3ª Zona de Registro Civil das Pessoas Naturais de São Luís</strong></td><td>(98) 3243-4477<br>(98) 98718-6683</td><td>cartorio3zonama@hotmail.com</td><td>AVENIDA DOS EXPEDICIONÁRIOS, 133. João Paulo</td><td>São Luís/MA</td><td>MA</td><td>65015-330</td><td></td></tr>
+                    <tr><td><strong>4ª Zona de Registro Civil das Pessoas Naturais de São Luís</strong></td><td>(98) 3301-5518<br>(98) 99121-8080 (WhatsApp)</td><td>cartorio4zona@enochvasconcelos.com.br</td><td>AVENIDA Contorno Leste, 4. lote 14. Cohatrac/Parque Aurora</td><td>São Luís/MA</td><td>MA</td><td>65053-570</td><td></td></tr>
+                    <tr><td><strong>5ª Zona de Registro Civil das Pessoas Naturais de São Luís</strong></td><td>(98) 97022-2267<br>(98) 97022-2267</td><td>cartoriozona5@gmail.com</td><td>RUA DAS LIMEIRAS, 02. QUADRA B. JARDIM RENASCENÇA.</td><td>São Luís/MA</td><td>MA</td><td>65075-260</td><td></td></tr>
                 </tbody>
             </table>
         </div>
