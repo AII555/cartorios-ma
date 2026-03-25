@@ -10,26 +10,50 @@
         body { background-color: #ffffff; display: flex; flex-direction: column; min-height: 100vh; }
 
         /* CABEÇALHO */
-        header { background-color: #29b6f6; display: flex; align-items: center; padding: 20px 50px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        header img { height: 80px; border-radius: 50%; margin-right: 30px; background-color: #2c3e50; padding: 5px; }
-        header h1 { color: #004d40; font-family: "Times New Roman", Times, serif; font-size: 36px; }
+        header { 
+            /* ALTERAÇÃO 1: Fundo azul marinho */
+            background-color: #000080; 
+            display: flex; 
+            align-items: center; 
+            padding: 20px 50px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+        }
+        header img { 
+            height: 80px; 
+            /* ALTERAÇÃO 2: Removido círculo e fundo escuro */
+            border-radius: 0; /* Remove o redondo */
+            background-color: transparent; /* Remove o fundo */
+            padding: 0; /* Remove o padding extra */
+            margin-right: 30px; 
+        }
+        header h1 { 
+            /* PEQUENA CORREÇÃO: Cor do texto branca para contraste com azul-marinho */
+            color: #ffffff; 
+            font-family: "Times New Roman", Times, serif; 
+            font-size: 36px; 
+        }
 
         /* CONTEÚDO PRINCIPAL (TABELAS) */
         main { flex-grow: 1; padding: 30px 50px; overflow-x: auto; }
         .tab-content { display: none; animation: fadeIn 0.3s ease-in-out; }
         .tab-content.active { display: block; }
         
-        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: auto; }
         th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; }
         th { background-color: #104e6b; color: #ffffff; font-weight: bold; }
         tr:nth-child(even) { background-color: #f2f2f2; }
         tr:hover { background-color: #e0f7fa; }
 
+        /* ALTERAÇÃO 3: Ajuste de espaçamento para não quebrar os números de contato */
+        table td:nth-child(2) {
+            white-space: nowrap; /* Impede que o texto quebre a linha */
+        }
+
         /* RODAPÉ E NAVEGAÇÃO (BOTÕES) */
         footer { background-color: #7f8c8d; padding: 10px 50px; display: flex; align-items: center; }
         .nav-buttons { display: flex; gap: 10px; background-color: #ffffff; padding: 5px; border-radius: 5px; }
         .nav-btn { background-color: transparent; border: none; padding: 10px 20px; font-size: 14px; font-weight: bold; color: #333; cursor: pointer; border-radius: 3px; transition: all 0.3s ease; }
-        .nav-btn:hover { background-color: #ecf0f1; color: #29b6f6; }
+        .nav-btn:hover { background-color: #ecf0f1; color: #000080; } /* Mudado hover pro azul marinho */
         .nav-btn.active { background-color: #104e6b; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
 
         /* Animação */
