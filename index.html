@@ -23,6 +23,43 @@
             color: #334155; 
         }
 
+        /* CABEÇALHO */
+        header { 
+            background-color: #ffffff; 
+            display: flex; 
+            align-items: center; 
+            padding: 15px 5%; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+            position: relative;
+            z-index: 10;
+        }
+        
+        header img { 
+            height: 60px; 
+            border-radius: 0; 
+            background-color: transparent; 
+            margin-right: 20px; 
+        }
+        
+        .header-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        header h1 { 
+            color: #000080; 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 28px; 
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            color: #000080; 
+            font-size: 13px;
+            margin-top: 2px;
+            opacity: 0.8; 
+        }
+
         /* CONTEÚDO PRINCIPAL */
         main { 
             flex-grow: 1; 
@@ -210,10 +247,32 @@
             
             /* O email quebra para a linha de baixo se for muito grande */
             table td:nth-child(3) { word-break: break-all; }
+            
+            /* Ajustes do cabeçalho para mobile (opcional, para ficar mais harmonioso) */
+            header {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 5%;
+            }
+            header img {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            header h1 {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
 <body>
+
+    <header>
+        <img src="https://www.4notasslz.com.br/images/logo4tab.jpg" alt="Logo 4º Tabelionato">
+        <div class="header-text">
+            <h1>Cartórios de São Luís/MA</h1>
+            <p>Localização e canais oficiais de atendimento</p>
+        </div>
+    </header>
 
     <main>
         <div class="nav-container">
