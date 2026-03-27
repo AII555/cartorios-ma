@@ -15,60 +15,24 @@
         
         /* TIPOGRAFIA E FUNDO DA PÁGINA */
         body { 
-            background-color: #f4f7f9; /* Fundo cinza super claro e moderno */
+            background-color: #f4f7f9; 
             display: flex; 
             flex-direction: column; 
             min-height: 100vh; 
-            font-family: 'Inter', sans-serif; /* Fonte moderna para leitura */
-            color: #334155; /* Texto cinza escuro (mais suave que preto puro) */
+            font-family: 'Inter', sans-serif; 
+            color: #334155; 
         }
 
-        /* CABEÇALHO - CORES INVERTIDAS SOLICITADAS */
-        header { 
-            background-color: #ffffff; /* ALTERADO: Fundo agora é branco */
-            display: flex; 
-            align-items: center; 
-            padding: 15px 5%; /* Padding compacto */
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Sombra mais suave contra fundo branco */
-            position: relative;
-            z-index: 10;
-        }
-        header img { 
-            height: 60px; 
-            border-radius: 0; 
-            background-color: transparent; 
-            margin-right: 20px; 
-        }
-        
-        .header-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        header h1 { 
-            color: #000080; /* ALTERADO: Texto agora é azul marinho */
-            font-family: 'Montserrat', sans-serif; /* Fonte de impacto para títulos */
-            font-size: 28px; 
-            letter-spacing: -0.5px;
-        }
-
-        header p {
-            color: #000080; /* ALTERADO: Subtítulo agora é azul marinho */
-            font-size: 13px;
-            margin-top: 2px;
-            opacity: 0.8; /* Pequena opacidade para hierarquia visual */
-        }
-
-        /* CONTEÚDO PRINCIPAL (LIMITADOR DE LARGURA PARA TELAS GRANDES) */
+        /* CONTEÚDO PRINCIPAL */
         main { 
             flex-grow: 1; 
             padding: 25px 5%; 
-            max-width: 1400px; /* Evita que a tabela fique esticada demais em monitores ultrawide */
+            max-width: 1400px; 
             margin: 0 auto;
             width: 100%;
         }
 
-        /* NAVEGAÇÃO SUPERIOR (ABAS MODERNAS) */
+        /* NAVEGAÇÃO SUPERIOR */
         .nav-container {
             display: flex;
             justify-content: center;
@@ -79,8 +43,10 @@
             display: inline-flex; 
             background-color: #e2e8f0; 
             padding: 5px; 
-            border-radius: 50px; /* Estilo pílula */
+            border-radius: 50px; 
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            flex-wrap: wrap; /* Permite que os botões quebrem linha em telas muito pequenas */
+            justify-content: center;
         }
 
         .nav-btn { 
@@ -104,26 +70,25 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
         }
 
-        /* ÁREA DAS TABELAS (CARD DESIGN COMPACTO) */
+        /* ÁREA DAS TABELAS */
         .table-wrapper {
             background-color: #ffffff;
             border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05); /* Sombra elegante */
-            overflow: hidden; /* Mantém tudo dentro do cartão sem rolagem chata */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05); 
+            overflow: hidden; 
             border: 1px solid #e2e8f0;
         }
 
         .tab-content { display: none; animation: fadeIn 0.4s ease; }
         .tab-content.active { display: block; }
         
-        /* Tabela configurada para caber na tela sem rolagem */
         table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: auto; }
         
         th, td { 
-            padding: 12px 15px; /* Compacto para evitar rolagem vertical */
+            padding: 12px 15px; 
             text-align: left; 
             border-bottom: 1px solid #f1f5f9; 
-            line-height: 1.4; /* Melhora leitura com quebra de linha */
+            line-height: 1.4; 
         }
         
         th { 
@@ -138,25 +103,29 @@
         }
 
         tr:nth-child(even) { background-color: #fafbfc; }
-        tr:hover { background-color: #f0f9ff; } /* Efeito de foco azul bem clarinho */
+        tr:hover { background-color: #f0f9ff; } 
 
         td strong { color: #0f172a; font-weight: 600; }
 
-        /* REGRAS ESPECÍFICAS PARA CABER TUDO NA TELA */
-        /* Impede apenas que Telefones (Coluna 2) e CEP (Coluna 5) quebrem no meio */
-        table td:nth-child(2), table td:nth-child(5) { 
-            white-space: nowrap; 
+        /* LINKS DO GOOGLE MAPS E TELEFONES */
+        .map-link, .phone-link {
+            color: #000080;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
         }
-        /* Dá um espaço preferencial para a coluna de endereço para ela não espremer muito */
-        table td:nth-child(4) {
-            min-width: 280px;
-        }
-        /* Permite que emails muito grandes quebrem se necessário */
-        table td:nth-child(3) {
-            word-break: break-word;
+        
+        .map-link:hover, .phone-link:hover {
+            text-decoration: underline;
+            color: #2563eb; 
         }
 
-        /* RODAPÉ SIMPLES */
+        .phone-link {
+            display: inline-block;
+            margin-bottom: 2px;
+        }
+
+        /* RODAPÉ */
         footer { 
             background-color: #ffffff; 
             padding: 15px; 
@@ -171,17 +140,80 @@
             from { opacity: 0; transform: translateY(5px); } 
             to { opacity: 1; transform: translateY(0); } 
         }
+
+        /* =========================================
+           UX MOBILE: TRANSFORMA TABELA EM CARDS 
+           ========================================= */
+        @media screen and (max-width: 768px) {
+            .table-wrapper {
+                border: none;
+                box-shadow: none;
+                background-color: transparent;
+            }
+            
+            table, thead, tbody, th, td, tr { 
+                display: block; 
+            }
+            
+            /* Esconde o cabeçalho original da tabela */
+            thead tr { 
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            
+            /* Cada linha vira um cartão */
+            tr { 
+                border: 1px solid #e2e8f0;
+                border-radius: 10px;
+                margin-bottom: 15px;
+                background-color: #ffffff;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+                overflow: hidden;
+            }
+            
+            td { 
+                border: none;
+                border-bottom: 1px solid #f1f5f9; 
+                position: relative;
+                padding-left: 35%; /* Abre espaço para o rótulo */
+                text-align: right; /* Joga a informação para a direita */
+                padding-top: 12px;
+                padding-bottom: 12px;
+            }
+
+            td:last-child {
+                border-bottom: none;
+            }
+            
+            /* Adiciona o rótulo (Nome, Contato...) usando o atributo data-label */
+            td:before { 
+                position: absolute;
+                top: 12px;
+                left: 15px;
+                width: 30%; 
+                padding-right: 10px; 
+                white-space: nowrap;
+                text-align: left;
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 600;
+                font-size: 10px;
+                color: #64748b;
+                text-transform: uppercase;
+                content: attr(data-label);
+            }
+
+            /* Ajustes específicos para o card não ficar apertado */
+            table td:nth-child(4) { min-width: auto; }
+            table td:nth-child(2), table td:nth-child(5) { white-space: normal; }
+            td strong { font-size: 14px; color: #000080;}
+            
+            /* O email quebra para a linha de baixo se for muito grande */
+            table td:nth-child(3) { word-break: break-all; }
+        }
     </style>
 </head>
 <body>
-
-    <header>
-        <img src="https://www.4notasslz.com.br/images/logo4tab.jpg" alt="Logo 4º Tabelionato">
-        <div class="header-text">
-            <h1>Cartórios de São Luís/MA</h1>
-            <p>Localização e canais oficiais de atendimento</p>
-        </div>
-    </header>
 
     <main>
         <div class="nav-container">
@@ -199,14 +231,70 @@
                         <tr><th>Nome</th><th>Contato</th><th>Email</th><th>Endereço</th><th>CEP</th><th>Anotação</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td><strong>1º Ofício de Notas de São Luís</strong></td><td>(98) 3231-9142</td><td>cartoriodeprotestoslz@gmail.com</td><td>Rua dos Azulões, 01. Edifício Office Tower - Loja 22. Jardim Renascença</td><td>65075-060</td><td></td></tr>
-                        <tr><td><strong>2º Ofício de Notas de São Luís</strong></td><td>(98) 99972-8515</td><td>notas@2notasslz.com.br, contato@2notasslz.com.br</td><td>Avenida João Pessoa, 404. Loja 03 - Centro Comercial Outeiro Mall. Outeiro da Cruz.</td><td>65010-003</td><td></td></tr>
-                        <tr><td><strong>3º Ofício de Notas de São Luís</strong></td><td>(98) 3231-4817</td><td>contato@3cartoriosaoluis.com.br, apostilamento@3cartoriosaoluis.com.br</td><td>Avenida dos Holandeses, 36.</td><td>5020-230</td><td><strong>LOCALIZADO NO SHOPPING DO AUTOMOVEL</strong></td></tr>
-                        <tr><td><strong>4º Tabelionato de Notas</strong></td><td>(98) 3243-5695</td><td>cartorio@4notasslz.com.br</td><td>Avenida Daniel de La Touche, 20, Vicente Fialho</td><td>65074-115</td><td><strong>EDIFICIO MOCELIN TOWER</strong></td></tr>
-                        <tr><td><strong>5º Tabelionato de Notas</strong></td><td>(98) 3303-7155</td><td>cartorio@5oficiosaoluis.com.br</td><td>Avenida Colares Moreira, 2. Edifício Planta Tower, térreo, lojas 13 e 14 - Jardim Renascença</td><td>65075-441</td><td><strong>PLANTA TOWER</strong></td></tr>
-                        <tr><td><strong>6º Tabelionato de Notas</strong></td><td>(98) 3115-6006</td><td>contato@6tabelionato.not.br</td><td>Avenida São Luís Rei de França, nº 08</td><td>65065-470</td><td><strong>SHOPPING RIO ANIL</strong></td></tr>
-                        <tr><td><strong>7º Tabelionato de Notas de São Luís</strong></td><td>(98) 3256-2266</td><td>contato@cartoriosaoluis.not.br</td><td>Avenida Daniel de La Touche, nº 6, quadra D, Área 1, Cohama</td><td>65074-115</td><td><strong>EM FRENTE AO MC DONALDS</strong></td></tr>
-                        <tr><td><strong>8º Tabelionato de Notas</strong></td><td>(98) 3242-1734</td><td>8tabelionatonotasslz@gmail.com</td><td>Rua do Amor, 23, Vila Bacanga</td><td>65080-840</td><td></td></tr>
+                        <tr>
+                            <td data-label="Nome"><strong>1º Ofício de Notas de São Luís</strong></td>
+                            <td data-label="Contato"><a href="tel:9832319142" class="phone-link">(98) 3231-9142</a></td>
+                            <td data-label="Email">cartoriodeprotestoslz@gmail.com</td>
+                            <td data-label="Endereço"><a href="https://www.google.com/maps/place/?q=place_id:ChIJh_VQvOSO9gcRDsTRxijb9r8" target="_blank" rel="noopener noreferrer" class="map-link">Rua dos Azulões, 01. Edifício Office Tower - Loja 22. Jardim Renascença</a></td>
+                            <td data-label="CEP">65075-060</td>
+                            <td data-label="Anotação"></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Nome"><strong>2º Ofício de Notas de São Luís</strong></td>
+                            <td data-label="Contato"><a href="tel:98999728515" class="phone-link">(98) 99972-8515</a></td>
+                            <td data-label="Email">notas@2notasslz.com.br<br>contato@2notasslz.com.br</td>
+                            <td data-label="Endereço"><a href="https://www.google.com/maps/place/?q=place_id:ChIJBePW0uCO9gcR7WdYjBUNUBQ" target="_blank" rel="noopener noreferrer" class="map-link">Avenida João Pessoa, 404. Loja 03 - Centro Comercial Outeiro Mall. Outeiro da Cruz.</a></td>
+                            <td data-label="CEP">65010-003</td>
+                            <td data-label="Anotação"></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Nome"><strong>3º Ofício de Notas de São Luís</strong></td>
+                            <td data-label="Contato"><a href="tel:9832314817" class="phone-link">(98) 3231-4817</a></td>
+                            <td data-label="Email">contato@3cartoriosaoluis.com.br</td>
+                            <td data-label="Endereço"><a href="https://www.google.com/maps/place/?q=place_id:ChIJTROCMoyN9gcRgftf22Mh4ms" target="_blank" rel="noopener noreferrer" class="map-link">Avenida dos Holandeses, 36.</a></td>
+                            <td data-label="CEP">65020-230</td>
+                            <td data-label="Anotação">LOCALIZADO NO SHOPPING DO AUTOMOVEL</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Nome"><strong>4º Tabelionato de Notas</strong></td>
+                            <td data-label="Contato"><a href="tel:9832435695" class="phone-link">(98) 3243-5695</a></td>
+                            <td data-label="Email">cartorio@4notasslz.com.br</td>
+                            <td data-label="Endereço"><a href="https://www.google.com/maps/place/?q=place_id:ChIJ9z1O90yP9gcR6W4s9yBqxmo" target="_blank" rel="noopener noreferrer" class="map-link">Avenida Daniel de La Touche, 20, Vicente Fialho</a></td>
+                            <td data-label="CEP">65074-115</td>
+                            <td data-label="Anotação">EDIFICIO MOCELIN TOWER</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Nome"><strong>5º Tabelionato de Notas</strong></td>
+                            <td data-label="Contato"><a href="tel:9833037155" class="phone-link">(98) 3303-7155</a></td>
+                            <td data-label="Email">cartorio@5oficiosaoluis.com.br</td>
+                            <td data-label="Endereço"><a href="https://www.google.com/maps/place/?q=place_id:ChIJSYtjxi2M9gcRx8IKRs8aba4" target="_blank" rel="noopener noreferrer" class="map-link">Avenida Colares Moreira, 2. Edifício Planta Tower, térreo - Jardim Renascença</a></td>
+                            <td data-label="CEP">65075-441</td>
+                            <td data-label="Anotação">PLANTA TOWER</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Nome"><strong>6º Tabelionato de Notas</strong></td>
+                            <td data-label="Contato"><a href="tel:9831156006" class="phone-link">(98) 3115-6006</a></td>
+                            <td data-label="Email">contato@6tabelionato.not.br</td>
+                            <td data-label="Endereço"><a href="https://www.google.com/maps/place/?q=place_id:ChIJU_tMnbSR9gcR0IbOKNKKTSY" target="_blank" rel="noopener noreferrer" class="map-link">Avenida São Luís Rei de França, nº 08</a></td>
+                            <td data-label="CEP">65065-470</td>
+                            <td data-label="Anotação">SHOPPING RIO ANIL</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Nome"><strong>7º Tabelionato de Notas de São Luís</strong></td>
+                            <td data-label="Contato"><a href="tel:9832562266" class="phone-link">(98) 3256-2266</a></td>
+                            <td data-label="Email">contato@cartoriosaoluis.not.br</td>
+                            <td data-label="Endereço"><a href="https://www.google.com/maps/place/?q=place_id:ChIJNSre_gSS9gcR96-QWpMQdDk" target="_blank" rel="noopener noreferrer" class="map-link">Avenida Daniel de La Touche, nº 6, quadra D, Área 1, Cohama</a></td>
+                            <td data-label="CEP">65074-115</td>
+                            <td data-label="Anotação">EM FRENTE AO MC DONALDS</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Nome"><strong>8º Tabelionato de Notas</strong></td>
+                            <td data-label="Contato"><a href="tel:9832421734" class="phone-link">(98) 3242-1734</a></td>
+                            <td data-label="Email">8tabelionatonotasslz@gmail.com</td>
+                            <td data-label="Endereço"><a href="https://www.google.com/maps/place/?q=place_id:ChIJiwjhGAOG9gcR8y-ejtfR-D0" target="_blank" rel="noopener noreferrer" class="map-link">Rua do Amor, 23, Vila Bacanga</a></td>
+                            <td data-label="CEP">65080-840</td>
+                            <td data-label="Anotação"></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -217,10 +305,38 @@
                         <tr><th>Nome</th><th>Contato</th><th>Email</th><th>Endereço</th><th>CEP</th><th>Anotação</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td><strong>1ª Zona de Registro de Imóveis de São Luís</strong></td><td>(98) 98785-3146</td><td>1rislcartma@gmail.com</td><td>Rua das Andirobas, 10, Edifício Executive Lake Center, 040. SALA, Jardim Renascença</td><td>65075-040</td><td></td></tr>
-                        <tr><td><strong>2ª Zona de Registro de Imóveis de São Luís</strong></td><td>(98) 3232-7692</td><td>cartorioimoveisjurandyleite@hotmail.com</td><td>Rua Godofredo Viana, 123. Próx. Teatro Arthur Azevedo. Centro.</td><td>65015-160</td><td></td></tr>
-                        <tr><td><strong>3ª Zona de Registro de Imóveis de São Luís</strong></td><td>(98) 3181-8662</td><td>3rislz@gmail.com</td><td>Avenida Daniel de La Touche, 20. Edifício Mocelin Tower, 9º andar. Cohama</td><td>65074-115</td><td></td></tr>
-                        <tr><td><strong>4º Registro de Imóveis de São Luís</strong></td><td>(98) 3181-0104<br>99118-1870</td><td>4ri.saoluis@gmail.com</td><td>Avenida dos Holandeses, 7508. Loja 12, Centro Comercial Queiroz Center, Olho d'Água</td><td>65065-180</td><td></td></tr>
+                        <tr>
+                            <td data-label="Nome"><strong>1ª Zona de Registro de Imóveis</strong></td>
+                            <td data-label="Contato"><a href="tel:98987853146" class="phone-link">(98) 98785-3146</a></td>
+                            <td data-label="Email">1rislcartma@gmail.com</td>
+                            <td data-label="Endereço"><a href="https://www.google.com/maps/place/?q=place_id:ChIJK3X0enKP9gcRlG6D8pikyJU" target="_blank" rel="noopener noreferrer" class="map-link">Rua das Andirobas, 10, Edifício Executive Lake Center, Jardim Renascença</a></td>
+                            <td data-label="CEP">65075-040</td>
+                            <td data-label="Anotação"></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Nome"><strong>2ª Zona de Registro de Imóveis</strong></td>
+                            <td data-label="Contato"><a href="tel:9832327692" class="phone-link">(98) 3232-7692</a></td>
+                            <td data-label="Email">cartorioimoveisjurandyleite@hotmail.com</td>
+                            <td data-label="Endereço"><a href="https://www.google.com/maps/place/?q=place_id:ChIJ435XTeaO9gcRfa0mYEbp6Ws" target="_blank" rel="noopener noreferrer" class="map-link">Rua Godofredo Viana, 123. Próx. Teatro Arthur Azevedo. Centro.</a></td>
+                            <td data-label="CEP">65015-160</td>
+                            <td data-label="Anotação"></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Nome"><strong>3ª Zona de Registro de Imóveis</strong></td>
+                            <td data-label="Contato"><a href="tel:9831818662" class="phone-link">(98) 3181-8662</a></td>
+                            <td data-label="Email">3rislz@gmail.com</td>
+                            <td data-label="Endereço"><a href="https://www.google.com/maps/place/?q=place_id:ChIJ4-FkkqaN9gcRlAYa6Ebzwp4" target="_blank" rel="noopener noreferrer" class="map-link">Avenida Daniel de La Touche, 20. Edifício Mocelin Tower, 9º andar. Cohama</a></td>
+                            <td data-label="CEP">65074-115</td>
+                            <td data-label="Anotação"></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Nome"><strong>4º Registro de Imóveis</strong></td>
+                            <td data-label="Contato"><a href="tel:9831810104" class="phone-link">(98) 3181-0104</a><br><a href="tel:98991181870" class="phone-link">(98) 99118-1870</a></td>
+                            <td data-label="Email">4ri.saoluis@gmail.com</td>
+                            <td data-label="Endereço"><a href="https://www.google.com/maps/place/?q=place_id:ChIJo-Xh8G2T9gcRNC30BEDI4fI" target="_blank" rel="noopener noreferrer" class="map-link">Avenida dos Holandeses, 7508. Loja 12, Centro Comercial Queiroz Center, Olho d'Água</a></td>
+                            <td data-label="CEP">65065-180</td>
+                            <td data-label="Anotação"></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -231,11 +347,46 @@
                         <tr><th>Nome</th><th>Contato</th><th>Email</th><th>Endereço</th><th>CEP</th><th>Anotação</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td><strong>1ª Zona de Registro Civil das Pessoas Naturais de São Luís</strong></td><td>(98) 3303-4546<br>(98) 98544-9732</td><td>primeirazonama@gmail.com</td><td>Rua do Egito, 96. Centro</td><td>65010-190</td><td></td></tr>
-                        <tr><td><strong>2ª Zona de Registro Civil das Pessoas Naturais de São Luís</strong></td><td>(98) 3221-4996<br>(98) 98146-1592</td><td>saoluis.2rcpn@yahoo.com.br</td><td>Rua do Norte, 580. Centro</td><td>65015-330</td><td></td></tr>
-                        <tr><td><strong>3ª Zona de Registro Civil das Pessoas Naturais de São Luís</strong></td><td>(98) 3243-4477<br>(98) 98718-6683</td><td>cartorio3zonama@hotmail.com</td><td>Avenida dos Expedicionários, 133. João Paulo</td><td>65015-330</td><td></td></tr>
-                        <tr><td><strong>4ª Zona de Registro Civil das Pessoas Naturais de São Luís</strong></td><td>(98) 3301-5518<br>(98) 99121-8080</td><td>cartorio4zona@enochvasconcelos.com.br</td><td>Avenida Contorno Leste, 4. Lote 14. Cohatrac/Parque Aurora</td><td>65053-570</td><td></td></tr>
-                        <tr><td><strong>5ª Zona de Registro Civil das Pessoas Naturais de São Luís</strong></td><td>(98) 97022-2267<br>(98) 97022-2267</td><td>cartoriozona5@gmail.com</td><td>Rua das Limeiras, 02. Quadra B. Jardim Renascença.</td><td>65075-260</td><td></td></tr>
+                        <tr>
+                            <td data-label="Nome"><strong>1ª Zona de Registro Civil</strong></td>
+                            <td data-label="Contato"><a href="tel:9833034546" class="phone-link">(98) 3303-4546</a><br><a href="tel:98985449732" class="phone-link">(98) 98544-9732</a></td>
+                            <td data-label="Email">primeirazonama@gmail.com</td>
+                            <td data-label="Endereço"><a href="https://www.google.com/maps/place/?q=place_id:ChIJJWDnyiO5ypIRT3518-FYrJ8" target="_blank" rel="noopener noreferrer" class="map-link">Avenida Beira-Mar, 354 - Centro</a></td>
+                            <td data-label="CEP">65010-070</td>
+                            <td data-label="Anotação"></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Nome"><strong>2ª Zona de Registro Civil</strong></td>
+                            <td data-label="Contato"><a href="tel:9832214996" class="phone-link">(98) 3221-4996</a><br><a href="tel:98981461592" class="phone-link">(98) 98146-1592</a></td>
+                            <td data-label="Email">saoluis.2rcpn@yahoo.com.br</td>
+                            <td data-label="Endereço"><a href="https://www.google.com/maps/place/?q=place_id:ChIJNSS8BB2P9gcRM3p1xKwtj_g" target="_blank" rel="noopener noreferrer" class="map-link">Rua do Norte, 580 - Centro</a></td>
+                            <td data-label="CEP">65015-330</td>
+                            <td data-label="Anotação"></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Nome"><strong>3ª Zona de Registro Civil</strong></td>
+                            <td data-label="Contato"><a href="tel:9832434477" class="phone-link">(98) 3243-4477</a><br><a href="tel:98987186683" class="phone-link">(98) 98718-6683</a></td>
+                            <td data-label="Email">cartorio3zonama@hotmail.com</td>
+                            <td data-label="Endereço"><a href="https://www.google.com/maps/place/?q=place_id:ChIJ5Z7ah7CP9gcRuqCI09wgupo" target="_blank" rel="noopener noreferrer" class="map-link">Avenida dos Expedicionários, 133 - João Paulo</a></td>
+                            <td data-label="CEP">65040-120</td>
+                            <td data-label="Anotação"></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Nome"><strong>4ª Zona de Registro Civil</strong></td>
+                            <td data-label="Contato"><a href="tel:9833015518" class="phone-link">(98) 3301-5518</a><br><a href="tel:98991218080" class="phone-link">(98) 99121-8080</a></td>
+                            <td data-label="Email">cartorio4zona@enochvasconcelos.com.br</td>
+                            <td data-label="Endereço"><a href="https://www.google.com/maps/place/?q=place_id:ChIJA-KbqrKR9gcRCheixT69JI0" target="_blank" rel="noopener noreferrer" class="map-link">Avenida Contorno Leste, 4 - Quadra 14 - Cohatrac I</a></td>
+                            <td data-label="CEP">65053-570</td>
+                            <td data-label="Anotação"></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Nome"><strong>5ª Zona de Registro Civil</strong></td>
+                            <td data-label="Contato"><a href="tel:98970222267" class="phone-link">(98) 97022-2267</a></td>
+                            <td data-label="Email">cartoriozona5@gmail.com</td>
+                            <td data-label="Endereço"><a href="https://www.google.com/maps/place/?q=place_id:ChIJH_4utN2O9gcRDFJd5xGLztE" target="_blank" rel="noopener noreferrer" class="map-link">Rua das Limeiras, Qda. B, Casa 02 - Jardim Renascença</a></td>
+                            <td data-label="CEP">65076-500</td>
+                            <td data-label="Anotação"></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -243,11 +394,10 @@
     </main>
 
     <footer>
-        <p>Atualizado em 2024 - Guia Rápido de Cartórios de São Luís</p>
+        <p>Atualizado em 2026 - Guia Rápido de Cartórios de São Luís</p>
     </footer>
 
     <script>
-        // Função para alternar entre as abas sem carregar nova página
         function abrirAba(evento, nomeAba) {
             var conteudos = document.getElementsByClassName("tab-content");
             for (var i = 0; i < conteudos.length; i++) {
