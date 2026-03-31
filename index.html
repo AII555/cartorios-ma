@@ -1,86 +1,36 @@
-import requests
-from bs4 import BeautifulSoup
-import json
-import os
-import unicodedata
-
-TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN')
-TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
-
-URL_TJMA = "https://www.tjma.jus.br/primeiro-grau/cgj/serventias"
-ARQUIVO_JSON = "memoria_tjma.json"
-
-def enviar_alerta_telegram(mensagem):
-    if not TELEGRAM_TOKEN or not TELEGRAM_CHAT_ID:
-        print("Aviso: Credenciais do Telegram ausentes.")
-        return
-    
-    url_api = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
-    payload = {"chat_id": TELEGRAM_CHAT_ID, "text": mensagem, "parse_mode": "HTML"}
-    try:
-        requests.post(url_api, json=payload)
-    except Exception as e:
-        print(f"Erro no Telegram: {e}")
-
-def remover_acentos(txt):
-    """Remove acentos para evitar que o robô se perca na leitura"""
-    return ''.join(c for c in unicodedata.normalize('NFD', txt) if unicodedata.category(c) != 'Mn')
-
-def extrair_dados_tjma():
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-    try:
-        response = requests.get(URL_TJMA, headers=headers, timeout=15)
-        response.raise_for_status()
-    except Exception as e:
-        print(f"Erro de conexão: {e}")
-        return None
-
-    soup = BeautifulSoup(response.text, 'html.parser')
-    cartorios_extraidos = {}
-
-    listas_cartorios = soup.find_all('ul', class_='general-link-list')
-    
-    if not listas_cartorios:
-        print("Aviso: Estrutura da página mudou.")
-        return None
-
-    for lista in listas_cartorios:
-        itens = lista.find_all('li')
-        for item in itens:
-            texto_bruto = item.get_text(separator=" | ", strip=True)
-            
-            # Limpa o texto (tira acentos e coloca tudo em maiúsculo) para a busca não falhar
-            texto_limpo = remover_acentos(texto_bruto.upper())
-            
-            if "SAO LUIS" in texto_limpo and ("OFICIO" in texto_limpo or "ZONA" in texto_limpo or "TABELIONATO" in texto_limpo):
-                assinatura_digital = texto_bruto[:100] 
-                cartorios_extraidos[assinatura_digital] = texto_bruto
-
-    print(f"✅ Extração concluída: {len(cartorios_extraidos)} registros encontrados.")            
-    return cartorios_extraidos
-
-def executar_monitoramento():
-    print("Iniciando varredura no portal do TJMA...")
-    dados_atuais_site = extrair_dados_tjma()
-    
-    if not dados_atuais_site:
-        print("Nenhum dado válido encontrado hoje.")
-        return
-
-    dados_antigos = {}
-    if os.path.exists(ARQUIVO_JSON):
-        with open(ARQUIVO_JSON, 'r', encoding='utf-8') as arquivo:
-            dados_antigos = json.load(arquivo)
-
-    if dados_atuais_site != dados_antigos:
-        print("🚨 Divergência encontrada! Os dados oficiais mudaram.")
-        mensagem_alerta = "🚨 <b>Atualização no TJMA Detectada!</b>\n\nO robô detectou uma mudança na lista de cartórios. Verifique o HTML."
-        enviar_alerta_telegram(mensagem_alerta)
-        
-        with open(ARQUIVO_JSON, 'w', encoding='utf-8') as arquivo:
-            json.dump(dados_atuais_site, arquivo, ensure_ascii=False, indent=4)
-    else:
-        print("✅ Tudo atualizado. Nenhuma alteração.")
-
-if __name__ == "__main__":
-    executar_monitoramento()
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartórios de São Luís - Guia Rápido</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f4f9; color: #333; margin: 20px; }
+        h2 { color: #2c3e50; text-align: center; }
+        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #3498db; color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .btn { display: inline-block; padding: 6px 12px; background: #27ae60; color: white; text-decoration: none; border-radius: 4px; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <h2>📍 Cartórios de São Luís - Maranhão</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Serventia</th>
+                <th>Localização</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-corpo">
+            <tr>
+                <td>1º Ofício de Notas</td>
+                <td>Rua do Egito, Centro</td>
+                <td><a href="#" class="btn">Ver Mapa</a></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
