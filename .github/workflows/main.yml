@@ -3,9 +3,8 @@ name: Monitor TJMA
 # Quando o robô deve trabalhar?
 on:
   schedule:
-    # Roda todo dia às 11h UTC (08h da manhã no horário de Brasília)
     - cron: '0 11 * * *' 
-  workflow_dispatch: # Adiciona um botão para você rodar manualmente quando quiser testar!
+  workflow_dispatch:
 
 jobs:
   verificar_site:
@@ -31,7 +30,7 @@ jobs:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       run: python monitor_tjma.py
 
-- name: 5. Salvar novos dados (se houver mudança)
+    - name: 5. Salvar novos dados (se houver mudança)
       run: |
         git config --global user.name 'Robô do Guia'
         git config --global user.email 'actions@github.com'
